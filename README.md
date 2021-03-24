@@ -19,8 +19,21 @@ mv Notes docs
 ```
 
 ```bash
-# serve
-python -m mkdocs serve
-# or build
-# python -m mkdocs build
+# build
+python -m mkdocs build
+# or serve for test
+# python -m mkdocs serve
+```
+
+## 3. Run
+
+Before run, make sure the nginx be configured correctly.
+
+Refer to `deploy/nginx_conf/example.conf`
+
+Run the listener:
+
+```bash
+cd app
+uvicorn main:app --host 0.0.0.0 --port 8008
 ```

@@ -50,7 +50,7 @@ async def rebuild(body: RequestBody, background_tasks: BackgroundTasks):
 def rebuild_docs_handler():
     commands = (
         f"cd {PRJ_ROOT / 'docs'} && git checkout . && git pull -f",
-        f"echo $(date) >> README.md"
+        f"cd {PRJ_ROOT / 'docs'} && echo $(date) >> README.md"
         f"cd {PRJ_ROOT} && python3 -m mkdocs build",
     )
     for cmd in commands:

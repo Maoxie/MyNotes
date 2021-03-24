@@ -15,6 +15,7 @@ import sys
 from typing import Dict
 
 from fastapi import FastAPI, BackgroundTasks, HTTPException
+from loguru import logger
 from pydantic import BaseModel
 
 from app.utils.shell_tools import shell
@@ -48,8 +49,12 @@ async def rebuild(body: RequestBody, background_tasks: BackgroundTasks):
 
 def rebuild_docs_handler():
     commands = (
-        "cd {PRJ_ROOT / 'docs'} && git pull -f",
-        "cd {PRJ_ROOT} && python3 -m mkdocs build",
+        f"cd {PRJ_ROOT / 'docs'} && git pull -f",
+        f"cd {PRJ_ROOT} && python3 -m mkdocs build",
     )
     for cmd in commands:
-        shell.run(cmd)
+        output, code = shell.run(cmd)
+        if code:
+            logger.error(output)
+        else:
+            logger.info(output)

@@ -31,9 +31,16 @@ Before run, make sure the nginx be configured correctly.
 
 Refer to `deploy/nginx_conf/example.conf`
 
+Create a `.env` file, append the token such as:
+
+```bash
+export MY_NOTES_TOKEN="your_secret_token"
+```
+
 Run the listener:
 
 ```bash
-cd app
-MY_NOTES_TOKEN="your_secret_token" uvicorn main:app --host 0.0.0.0 --port 8008
+uvicorn app.main:app --host 0.0.0.0 --port 8008 --env-file .env
+# or run at background
+nohup uvicorn app.main:app --host 0.0.0.0 --port 8008 --env-file .env &> logs/app.log &
 ```

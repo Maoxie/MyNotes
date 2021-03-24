@@ -24,7 +24,7 @@ PRJ_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PRJ_ROOT))
 
 app = FastAPI()
-print(f"TOKEN: {os.environ['MY_NOTES_TOKEN']}")
+logger.info(f"TOKEN: {os.environ['MY_NOTES_TOKEN']}")
 
 
 class RequestBody(BaseModel):
@@ -49,12 +49,16 @@ async def rebuild(body: RequestBody, background_tasks: BackgroundTasks):
 
 def rebuild_docs_handler():
     commands = (
-        f"cd {PRJ_ROOT / 'docs'} && git pull -f",
+        f"cd {PRJ_ROOT / 'docs'} && git checkout . && git pull -f",
+        f"echo $(date) >> README.md"
         f"cd {PRJ_ROOT} && python3 -m mkdocs build",
     )
     for cmd in commands:
         output, code = shell.run(cmd)
         if code:
             logger.error(output)
+            logger.error("Failed to rebuild.")
+            break
         else:
             logger.info(output)
+            logger.info("Rebuild successfully.")

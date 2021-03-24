@@ -11,16 +11,19 @@
 """
 import os
 from pathlib import Path
+import sys
 from typing import Dict
 
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
 
-from .utils.shell_tools import shell
+from app.utils.shell_tools import shell
 
 PRJ_ROOT = Path(__file__).resolve().parents[1]
+sys.path.append(str(PRJ_ROOT))
 
 app = FastAPI()
+print(f"TOKEN: {os.environ['MY_NOTES_TOKEN']}")
 
 
 class RequestBody(BaseModel):

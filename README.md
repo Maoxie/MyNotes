@@ -35,5 +35,5 @@ Run the listener:
 
 ```bash
 cd app
-uvicorn main:app --host 0.0.0.0 --port 8008
+MY_NOTES_TOKEN="your_secret_token" uvicorn main:app --host 0.0.0.0 --port 8008
 ```

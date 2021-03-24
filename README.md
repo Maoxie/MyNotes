@@ -40,7 +40,7 @@ export MY_NOTES_TOKEN="your_secret_token"
 Run the listener:
 
 ```bash
-uvicorn app.main:app --host 0.0.0.0 --port 8008 --env-file .env
+uvicorn app.main:app --host 127.0.0.1 --port 8008 --env-file .env
 # or run at background
-nohup uvicorn app.main:app --host 0.0.0.0 --port 8008 --env-file .env &> logs/app.log &
+nohup uvicorn app.main:app --host 127.0.0.1 --port 8008 --env-file .env &> logs/app.log &
 ```
